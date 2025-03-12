@@ -52,13 +52,23 @@ class SocialMediaScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.notifications_none, color: Colors.black),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const Icon(Icons.chat_bubble_outline, color: Colors.black),
-            onPressed: () {},
-          ),
+              icon: Image.asset('assets/icon/notification.png', width: 24, height: 24),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const NotificationScreen()),
+                );
+              },
+            ),
+            IconButton(
+              icon: Image.asset('assets/icon/chat.png', width: 24, height: 24),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const GroupsAndChatsScreen()),
+                );
+              },
+            ),
         ],
       ),
       body: Column(
