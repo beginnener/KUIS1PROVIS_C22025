@@ -7,6 +7,7 @@ import 'keuangan.dart';
 import 'notifikasi.dart';
 import 'sosmed.dart';
 import 'todo.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -40,7 +41,9 @@ class GroupsAndChatsScreen extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         actions: [
           IconButton(
