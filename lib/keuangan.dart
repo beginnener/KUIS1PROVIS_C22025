@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kuis_provis_1/akademik.dart';
 import 'mental.dart';
 import 'main.dart';
 import 'elearning.dart';
@@ -7,6 +8,7 @@ import 'keuangan.dart';
 import 'notifikasi.dart';
 import 'sosmed.dart';
 import 'todo.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -23,34 +25,58 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class FinanceScreen extends StatelessWidget {
+class FinanceScreen extends StatefulWidget {
   const FinanceScreen({super.key});
+
+  @override
+  State<FinanceScreen> createState() => _FinanceScreenState();
+}
+
+class _FinanceScreenState extends State<FinanceScreen> {
+  int _currentIndex = 0;
+
+  final List<Widget> _screens = [
+    const AkademikScreen(),
+    const ELearningScreen(),
+    const HomeScreen(),
+    const ToDoScreen(),
+    const SocialMediaScreen(),
+  ];
+
+  void _onItemTapped(int index) {
+    if (index != _currentIndex) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => _screens[index]),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Row(
-            children: [
-              CircleAvatar(
-                  child: Image.asset('assets/icon/profile.png',
-                      width: 24, height: 24)),
-              const SizedBox(width: 8),
-              const Text('Halo, Futih Millati'),
-              const Spacer(),
-              IconButton(
-                icon: Image.asset('assets/icon/notification.png',
-                    width: 24, height: 24),
-                onPressed: () {},
-              ),
-              IconButton(
-                icon:
-                    Image.asset('assets/icon/chat.png', width: 24, height: 24),
-                onPressed: () {},
-              ),
-            ],
-          ),
+        title: Row(
+          children: [
+            CircleAvatar(
+                child: Image.asset('assets/icon/profile.png',
+                    width: 24, height: 24)),
+            const SizedBox(width: 8),
+            const Text('Halo, Futih Millati'),
+            const Spacer(),
+            IconButton(
+              icon: Image.asset('assets/icon/notification.png',
+                  width: 24, height: 24),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon:
+                  Image.asset('assets/icon/chat.png', width: 24, height: 24),
+              onPressed: () {},
+            ),
+          ],
         ),
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
@@ -153,8 +179,9 @@ class FinanceScreen extends StatelessWidget {
         ),
       ),
 
-      // Bottom Navigation Bar
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: _onItemTapped,
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.purple,
         unselectedItemColor: Colors.grey,
@@ -169,7 +196,6 @@ class FinanceScreen extends StatelessWidget {
     );
   }
 
-  // Widget untuk kartu Income & Expense
   Widget _buildIncomeExpenseCard(
       String title, String amount, IconData icon, Color color) {
     return Expanded(
@@ -200,7 +226,6 @@ class FinanceScreen extends StatelessWidget {
     );
   }
 
-  // Widget untuk kartu Wallet
   Widget _buildWalletCard(String amount, String label, IconData icon, Color color) {
     return Container(
       padding: const EdgeInsets.all(12),
@@ -222,14 +247,13 @@ class FinanceScreen extends StatelessWidget {
     );
   }
 
-  // Widget untuk Tab di Recent Transactions
   Widget _buildTab(String title, bool isSelected) {
     return Text(
       title,
       style: TextStyle(
           color: isSelected ? Colors.white : Colors.white54,
           fontSize: 16,
-          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal),
+          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,)
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kuis_provis_1/akademik.dart';
 import 'mental.dart';
 import 'main.dart';
 import 'elearning.dart';
@@ -8,24 +9,32 @@ import 'notifikasi.dart';
 import 'sosmed.dart';
 import 'todo.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class GroupsAndChatsScreen extends StatefulWidget {
+  const GroupsAndChatsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: const GroupsAndChatsScreen(),
-    );
-  }
+  State<GroupsAndChatsScreen> createState() => _GroupsAndChatsScreenState();
 }
 
-class GroupsAndChatsScreen extends StatelessWidget {
-  const GroupsAndChatsScreen({super.key});
+class _GroupsAndChatsScreenState extends State<GroupsAndChatsScreen> {
+  int _currentIndex = 0;
+
+  final List<Widget> _screens = [
+    const AkademikScreen(),
+    const ELearningScreen(),
+    const HomeScreen(),
+    const ToDoScreen(),
+    const SocialMediaScreen(),
+  ];
+
+  void _onItemTapped(int index) {
+    if (index != _currentIndex) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => _screens[index]),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +63,6 @@ class GroupsAndChatsScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          // Search Bar
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: TextField(
@@ -71,8 +79,6 @@ class GroupsAndChatsScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-
-          // ListView Chat
           Expanded(
             child: ListView.separated(
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -98,16 +104,14 @@ class GroupsAndChatsScreen extends StatelessWidget {
           ),
         ],
       ),
-
-      // Floating Action Button
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         backgroundColor: Colors.purple,
         child: const Icon(Icons.add, size: 32, color: Colors.white),
       ),
-
-      // Bottom Navigation Bar
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: _onItemTapped,
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.purple,
         unselectedItemColor: Colors.grey,

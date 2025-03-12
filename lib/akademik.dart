@@ -8,66 +8,71 @@ import 'notifikasi.dart';
 import 'sosmed.dart';
 import 'todo.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class AkademikScreen extends StatefulWidget {
+  const AkademikScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: const AkademikScreen(),
-    );
-  }
+  State<AkademikScreen> createState() => _AkademikScreenState();
 }
 
-class AkademikScreen extends StatelessWidget {
-  const AkademikScreen({super.key});
+class _AkademikScreenState extends State<AkademikScreen> {
+  int _currentIndex = 0;
+
+  final List<Widget> _screens = [
+    const AkademikScreen(),
+    const ELearningScreen(),
+    const HomeScreen(),
+    const ToDoScreen(),
+    const SocialMediaScreen(),
+  ];
+
+  void _onItemTapped(int index) {
+    if (index != _currentIndex) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => _screens[index]),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Row(
-            children: [
-              CircleAvatar(
-                  child: Image.asset('assets/icon/profile.png',
-                      width: 24, height: 24)),
-              const SizedBox(width: 8),
-              const Text('Futih Millati'),
-              const Spacer(),
-              IconButton(
-                icon: Image.asset('assets/icon/notification.png',
-                    width: 24, height: 24),
-                onPressed: () {},
-              ),
-              IconButton(
-                icon:
-                    Image.asset('assets/icon/chat.png', width: 24, height: 24),
-                onPressed: () {},
-              ),
-            ],
-          ),
+        title: Row(
+          children: [
+            CircleAvatar(
+                child: Image.asset('assets/icon/profile.png',
+                    width: 24, height: 24)),
+            const SizedBox(width: 8),
+            const Text('Futih Millati'),
+            const Spacer(),
+            IconButton(
+              icon: Image.asset('assets/icon/notification.png',
+                  width: 24, height: 24),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon:
+                  Image.asset('assets/icon/chat.png', width: 24, height: 24),
+              onPressed: () {},
+            ),
+          ],
         ),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Pengumuman Banner
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(12),
               color: Colors.purple,
               child: const Text(
-                "📢 Pengumuman perpanjangan pembayaran UKT, baca selengkapnya",
+                "\ud83d\udce2 Pengumuman perpanjangan pembayaran UKT, baca selengkapnya",
                 style: TextStyle(color: Colors.white, fontSize: 14),
               ),
             ),
             const SizedBox(height: 16),
-
-            // SKS & IPK
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Row(
@@ -82,14 +87,9 @@ class AkademikScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: const [
-                          Text("SKS Diperoleh",
-                              style: TextStyle(color: Colors.white)),
+                          Text("SKS Diperoleh", style: TextStyle(color: Colors.white)),
                           SizedBox(height: 8),
-                          Text("65 SKS",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold)),
+                          Text("65 SKS", style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold)),
                         ],
                       ),
                     ),
@@ -105,14 +105,9 @@ class AkademikScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: const [
-                          Text("Perolehan IPK",
-                              style: TextStyle(color: Colors.white)),
+                          Text("Perolehan IPK", style: TextStyle(color: Colors.white)),
                           SizedBox(height: 8),
-                          Text("3,80",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold)),
+                          Text("3,80", style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold)),
                         ],
                       ),
                     ),
@@ -121,36 +116,15 @@ class AkademikScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-
-            // Menu Navigasi (Rencana Studi, Kalender Akademik, dll.)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: GridView.count(
-                shrinkWrap: true,
-                crossAxisCount: 4,
-                physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  _buildMenuItem(Icons.edit, "Rencana Studi"),
-                  _buildMenuItem(Icons.calendar_today, "Kalender Akademik"),
-                  _buildMenuItem(Icons.emoji_events, "Prestasi"),
-                  _buildMenuItem(Icons.access_time, "Cuti Kuliah"),
-                ],
-              ),
-            ),
-            const SizedBox(height: 16),
-
-            // Tren IP
             _buildGraphCard("Tren IP"),
             const SizedBox(height: 16),
-
-            // Perolehan Nilai
             _buildGraphCard("Perolehan Nilai"),
           ],
         ),
       ),
-      
-      // Bottom Navigation Bar
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: _onItemTapped,
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.purple,
         unselectedItemColor: Colors.grey,
@@ -165,19 +139,6 @@ class AkademikScreen extends StatelessWidget {
     );
   }
 
-  // Widget untuk item menu navigasi
-  Widget _buildMenuItem(IconData icon, String label) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(icon, color: Colors.white, size: 28),
-        const SizedBox(height: 4),
-        Text(label, textAlign: TextAlign.center, style: const TextStyle(color: Colors.white, fontSize: 12)),
-      ],
-    );
-  }
-
-  // Widget untuk menampilkan kartu grafik
   Widget _buildGraphCard(String title) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -198,4 +159,4 @@ class AkademikScreen extends StatelessWidget {
       ),
     );
   }
-}
+} 
