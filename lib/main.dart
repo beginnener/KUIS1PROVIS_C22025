@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'mental.dart';
 
 // halooooooooo
 void main() {
@@ -64,11 +65,27 @@ class _MyAppState extends State<MyApp> {
               child: Row(
                 children: [
                   Expanded(
-                    child: Container(
-                      height: 100,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius: BorderRadius.circular(16),
+                    child: Builder(
+                      builder: (context) => GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const MentalHealthScreen()),
+                          );
+                        }, 
+                        child: Container(
+                          height: 100,
+                          decoration: BoxDecoration(
+                            color: Colors.purple[300],
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: const Center(
+                            child: Text(
+                              'Mental Health',
+                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ),
