@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'mental.dart';
-import 'main.dart';
 import 'elearning.dart';
 import 'chat.dart';
 import 'keuangan.dart';
@@ -19,7 +18,69 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const ELearningScreen(),
+      home: const MainScreen(),
+    );
+  }
+}
+
+class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
+
+  @override
+  _MainScreenState createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  int _selectedIndex = 1; // Default ke E-Learning
+
+  final List<Widget> _pages = [
+    PlaceholderWidget("Akademik"),
+    const ELearningScreen(),
+    PlaceholderWidget("Home"),
+    PlaceholderWidget("To-Do"),
+    PlaceholderWidget("Socmed"),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: _pages[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.purple,
+        unselectedItemColor: Colors.grey,
+        onTap: _onItemTapped,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.school), label: 'Akademik'),
+          BottomNavigationBarItem(icon: Icon(Icons.book), label: 'E-Learning'),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.calendar_today), label: 'To-Do'),
+          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Socmed'),
+        ],
+      ),
+    );
+  }
+}
+
+// Placeholder Widget untuk halaman yang belum dibuat
+class PlaceholderWidget extends StatelessWidget {
+  final String title;
+  const PlaceholderWidget(this.title, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        title,
+        style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+      ),
     );
   }
 }
@@ -74,7 +135,7 @@ class ELearningScreen extends StatelessWidget {
                   hintText: "Search...",
                   filled: true,
                   fillColor: Colors.white,
-                  prefixIcon: Icon(Icons.search, color: Colors.grey),
+                  prefixIcon: const Icon(Icons.search, color: Colors.grey),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(24),
                     borderSide: BorderSide.none,
@@ -140,20 +201,6 @@ class ELearningScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
-
-      // Bottom Navigation Bar
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.purple,
-        unselectedItemColor: Colors.grey,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.school), label: 'Akademik'),
-          BottomNavigationBarItem(icon: Icon(Icons.book), label: 'E-Learning'),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.calendar_today), label: 'To-Do'),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Socmed'),
-        ],
       ),
     );
   }
