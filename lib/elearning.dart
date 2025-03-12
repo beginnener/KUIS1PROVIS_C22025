@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'mental.dart';
+import 'akademik.dart';
 import 'main.dart';
 import 'elearning.dart';
 import 'chat.dart';
