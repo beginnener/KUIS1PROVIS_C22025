@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 import 'mental.dart';
+import 'akademik.dart';
+import 'elearning.dart';
+import 'chat.dart';
+import 'keuangan.dart';
+import 'notifikasi.dart';
+import 'sosmed.dart';
+import 'todo.dart';
 
 // halooooooooo
 void main() {
@@ -15,6 +22,36 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int _currentIndex = 0; // Untuk menentukan item aktif
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+
+    // Navigasi ke halaman sesuai index
+    switch (index) {
+      case 0:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => const AkademikScreen()));
+        break;
+      case 1:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => const ELearningScreen()));
+        break;
+      case 2:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => const MyApp()));
+        break;
+      case 3:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => const ToDoScreen()));
+        break;
+      case 4:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => const SocialMediaScreen()));
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +71,18 @@ class _MyAppState extends State<MyApp> {
               IconButton(
                 icon: Image.asset('assets/icon/notification.png',
                     width: 24, height: 24),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => const NotificationScreen()));
+                },
               ),
               IconButton(
                 icon:
                     Image.asset('assets/icon/chat.png', width: 24, height: 24),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => const GroupsAndChatsScreen()));
+                },
               ),
             ],
           ),
@@ -81,7 +124,7 @@ class _MyAppState extends State<MyApp> {
                           ),
                           child: const Center(
                             child: Text(
-                              'Mental Health',
+                              'Bantuan Kesehatan Mental',
                               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
                             ),
                           ),
@@ -91,11 +134,27 @@ class _MyAppState extends State<MyApp> {
                   ),
                   SizedBox(width: 16),
                   Expanded(
-                    child: Container(
-                      height: 100,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius: BorderRadius.circular(16),
+                    child: Builder(
+                      builder: (context) => GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const FinanceScreen()),
+                          );
+                        }, 
+                        child: Container(
+                          height: 100,
+                          decoration: BoxDecoration(
+                            color: Colors.purple[300],
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: const Center(
+                            child: Text(
+                              'Dompet Mahasiswa',
+                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -128,16 +187,11 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
         bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType
-              .fixed, // Penting untuk menampilkan semua label
+          type: BottomNavigationBarType.fixed, // Penting untuk menampilkan semua label
           currentIndex: _currentIndex, // Tentukan index item yang aktif
           selectedItemColor: Colors.blue, // Warna untuk item aktif
           unselectedItemColor: Colors.grey, // Warna untuk item tidak aktif
-          onTap: (index) {
-            setState(() {
-              _currentIndex = index;
-            });
-          },
+          onTap: _onItemTapped,
           items: const [
             BottomNavigationBarItem(
                 icon: ImageIcon(AssetImage('assets/icon/academic.png')),
