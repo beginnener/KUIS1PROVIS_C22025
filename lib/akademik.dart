@@ -30,27 +30,27 @@ class AkademikScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          children: [
-            CircleAvatar(
-              child: Icon(Icons.person, size: 24),
-            ),
-            const SizedBox(width: 8),
-            const Text('Futih Milati', style: TextStyle(fontSize: 18)),
-            const Spacer(),
-            IconButton(
-              icon: Icon(Icons.notifications),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: Icon(Icons.chat),
-              onPressed: () {},
-            ),
-          ],
+          title: Row(
+            children: [
+              CircleAvatar(
+                  child: Image.asset('assets/icon/profile.png',
+                      width: 24, height: 24)),
+              const SizedBox(width: 8),
+              const Text('Futih Millati'),
+              const Spacer(),
+              IconButton(
+                icon: Image.asset('assets/icon/notification.png',
+                    width: 24, height: 24),
+                onPressed: () {},
+              ),
+              IconButton(
+                icon:
+                    Image.asset('assets/icon/chat.png', width: 24, height: 24),
+                onPressed: () {},
+              ),
+            ],
+          ),
         ),
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
       body: SingleChildScrollView(
         child: Column(
           children: [

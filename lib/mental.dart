@@ -23,29 +23,27 @@ class MentalHealthScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.purple,
-        elevation: 0,
-        title: Row(
-          children: [
-            CircleAvatar(
-              backgroundColor: Colors.grey[300],
-              child: Icon(Icons.person, color: Colors.black),
-            ),
-            SizedBox(width: 10),
-            Text("Halo, Futih Milati", style: TextStyle(color: Colors.white)),
-          ],
+          title: Row(
+            children: [
+              CircleAvatar(
+                  child: Image.asset('assets/icon/profile.png',
+                      width: 24, height: 24)),
+              const SizedBox(width: 8),
+              const Text('Halo, Futih Millati'),
+              const Spacer(),
+              IconButton(
+                icon: Image.asset('assets/icon/notification.png',
+                    width: 24, height: 24),
+                onPressed: () {},
+              ),
+              IconButton(
+                icon:
+                    Image.asset('assets/icon/chat.png', width: 24, height: 24),
+                onPressed: () {},
+              ),
+            ],
+          ),
         ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.notifications, color: Colors.white),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Icon(Icons.chat_bubble, color: Colors.white),
-            onPressed: () {},
-          ),
-        ],
-      ),
       body: Column(
         children: [
           Container(
